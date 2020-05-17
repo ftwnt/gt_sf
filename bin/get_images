@@ -1,1 +1,17 @@
-# !/usr/bin/env ruby
+#!/usr/bin/env ruby
+
+require './lib/images_fetcher'
+
+if ARGV[0]
+  fetcher = ImagesFetcher.new(file_path: ARGV[0])
+
+  fetcher.perform
+
+  if fetcher.errors.all? { |_, v| v.empty? }
+    puts 'All images have been saved'
+  else
+    fetcher.display_errors
+  end
+else
+  puts 'No file path has been passed. Please provide a plain text file path.'
+end
